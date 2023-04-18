@@ -7,28 +7,191 @@
 
 == Demonstration
 
-Include here content related to potential existing demos: blogs, articles, recorded videos, walkthrough guides, tutorials.
 
-[#demo-video]
-=== Watch a demonstration
 
-In this video you can see xpto:
+[#cluster-create-video]
+=== ROSA Cluster Creation process:
 
-video::3yULVMdqJ98[youtube, width=800, height=480]
+video::gAMr3sI5bdY[youtube, width=800, height=480]
 
-Next, you can learn how to walkthrough this demo.
+== ROSA integration with AWS services:
+Here we will see how easily we can integrate AWS services with ROSA. Below are the walkthrough guides for integrating ROSA with different AWS services.
 
-== Run the demonstration
+=== CloudWatch
+We can easily set up ROSA to forward logs to Cloudwatch and view those logs from there. Below are the steps used to configure the Cloudwatch logging with STS:
 
-=== Before getting started
-To run this demo, you will need xpto. Adding to that, make sure to have:
+1. Run the following commands to get the environment variables setup:
++
+[.console-input]
+[source,shell script]
+```
+export ROSA_CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.infrastructureName}"  | sed 's/-[a-z0-9]\+$//')
+export REGION=$(rosa describe cluster -c ${ROSA_CLUSTER_NAME} --output json | jq -r .region.id)
+export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer | sed  's|^https://||')
+export AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
+export AWS_PAGER=""
+export SCRATCH="/tmp/${ROSA_CLUSTER_NAME}/clf-cloudwatch-sts"
+mkdir -p ${SCRATCH}
+echo "Cluster: ${ROSA_CLUSTER_NAME}, Region: ${REGION}, OIDC Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}"
+```
++
+1. Create an IAM policy and Role to be used by ClusterLogForwarder. Attach the IAM policy to the role.
++
+[.console-input]
+[source,shell script]
+```
+POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='RosaCloudWatch'].{ARN:Arn}" --output text)
 
-* ABC
-* XYZ
-* XPTO
+if [[ -z "${POLICY_ARN}" ]]; then
+cat << EOF > ${SCRATCH}/policy.json
+{
+"Version": "2012-10-17",
+"Statement": [
+   {
+         "Effect": "Allow",
+         "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+  			"logs:DescribeLogGroups",
+    		"logs:DescribeLogStreams",
+    		"logs:PutLogEvents",
+       		"logs:PutRetentionPolicy"
+     		],
+    	"Resource": "arn:aws:logs:*:*:*"
+   }
+]
+}
+EOF
 
-=== Installing the demo
-Installation guide and basic test of the demo installation if needed
+POLICY_ARN=$(aws iam create-policy --policy-name "RosaCloudWatch" \
+--policy-document file:///${SCRATCH}/policy.json --query Policy.Arn --output text)
+fi
 
-=== Walkthrough guide
-How to run through the demo
+echo ${POLICY_ARN}
+
+cat <<EOF > ${SCRATCH}/trust-policy.json
+{
+   "Version": "2012-10-17",
+   "Statement": [{
+     "Effect": "Allow",
+     "Principal": {
+       "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_ENDPOINT}"
+     },
+     "Action": "sts:AssumeRoleWithWebIdentity",
+     "Condition": {
+       "StringEquals": {
+         "${OIDC_ENDPOINT}:sub": "system:serviceaccount:openshift-logging:logcollector"
+       }
+     }
+   }]
+}
+EOF
+
+ROLE_ARN=$(aws iam create-role --role-name "${ROSA_CLUSTER_NAME}-RosaCloudWatch" \
+   --assume-role-policy-document file://${SCRATCH}/trust-policy.json \
+   --query Role.Arn --output text)
+
+echo ${ROLE_ARN}
+
+aws iam attach-role-policy --role-name "${ROSA_CLUSTER_NAME}-RosaCloudWatch" \
+--policy-arn ${POLICY_ARN}
+
+```
++
+1. Deploy the Cluster Logging operator using the below commands:
++
+[.console-input]
+[source,shell script]
+```
+cat << EOF | oc apply -f -
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+   operators.coreos.com/cluster-logging.openshift-logging: ""
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: cluster-logging
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF
+
+```
++
+1. Create a secret which will be used by cluster log forwarding resource:
++
+[.console-input]
+[source,shell script]
+```
+cat << EOF | oc apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudwatch-credentials
+  namespace: openshift-logging
+stringData:
+  role_arn: $ROLE_ARN
+EOF
+
+```
++
+1. Create cluster log forwarding resource
++
+[.console-input]
+[source,shell script]
+```
+cat << EOF | oc apply -f -
+apiVersion: "logging.openshift.io/v1"
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  outputs:
+    - name: cw
+      type: cloudwatch
+      cloudwatch:
+        groupBy: namespaceName
+        groupPrefix: rosa-${ROSA_CLUSTER_NAME}
+        region: ${REGION}
+      secret:
+        name: cloudwatch-credentials
+  pipelines:
+     - name: to-cloudwatch
+       inputRefs:
+         - infrastructure
+         - audit
+         - application
+       outputRefs:
+         - cw
+EOF
+```
++
+1. Create a cluster logging resource
++
+[.console-input]
+[source,shell script]
+```
+cat << EOF | oc apply -f -
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogging
+Metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  collection:
+    logs:
+      type: fluentd
+ 	  forwarder:
+  		fluentd: {}
+  managementState: Managed
+EOF
+```
++
+1. Now we can check the logs in Cloudwatch console, as shown in the below image. In this image, mycluster1331 is the name of ROSA cluster used here for demonstration.
++
+[link=rosacw.png, window="_blank"]
+image::rosacw.png[width=100%]
