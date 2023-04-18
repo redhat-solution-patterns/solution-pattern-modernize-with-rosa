@@ -1,20 +1,40 @@
-= Solution Patterns: Template Name
+= Solution Patterns: Red Hat Openshift Service on AWS
 :page-layout: home
 :sectnums:
 :sectlinks:
 :doctype: book
 
-A brief introduction of this solution pattern.
+[#whatisrosa]
+== Solution overview
+This solution pattern brings an architectural solution demonstrating the integration of Red Hat Openshift Service on AWS(ROSA) with different AWS services.
+
+ROSA(Red Hat Openshift Service on AWS) is a fully-managed, turnkey application platform that allows you to focus on delivering value to your customers by building and deploying applications. Red Hat and AWS Site reliability engineering (SRE) experts manage the underlying platform so you do not have to worry about the complexity of infrastructure management. ROSA provides seamless integration with a wide range of AWS compute, database, analytics, machine learning, networking, mobile, and other services to further accelerate the building and delivering of differentiating experiences to your customers. 
+
 
 include::content-overview.adoc[]
 
-[#use-cases]
-== Use cases
+[#rosavsk8s]
+== How ROSA is different from DIY Kuberenetes
 
-Common use cases that can be address with this architecture are:
+Container and Kubernetes are the modern elements of business software success. But it requires training and a great amount of effort to shift to Kubernetes. 
+Let us see how ROSA differs from DIY Kubernetes: 
 
-- xyz
-- xyz
+- ROSA is a Managed Application platform: DIY Kubernetes can be tricky to get it up and running. There are many options and configurations available to customize the Kubernetes clusters as per the requirements. To setup different environments and make those available quickly with strong security posture is no small task. It can take a whole team of people to keep such systems up and running. ROSA provides a higher class of service, support and hosting , along with enhanced securityy capabilities. With Red Hat's SRE running the infrastructure, Application team can focus on the applications instead of spending time standing up and installing systems so that container workloads can be deployed on those clusters.    
+- ROSA provides automation and management: With tools like Ansible, Argo CD and Git, nearly any workflow can be automated into a pipeline. But this level of automation takes time to build and customize, just like any infrastructure. For teams that aren't yet specialized in the new "cloudy" way of building software abd even for teams that would rather spend their cycles away from infrastructure, Red Hat Openshift Service on AWS features helpful automation tools and processes to help speed up the process. Instead of building your development pipelines from scratch, ROSA can tie in your existing systems and tools, such as GitHub and Ansible. Even better, our SREs have constructed patterns for your developers to use, with pre-configured versions of essential infrastructure ready to go at the drop of a hat. 
+
+
+
+[#features]
+== Features & Benefits of ROSA
+
+Organizations are looking for a way to deliver high quality, innovative applications that provide greater business value and effectively scale according to rapidly changing demands. Here are the features & benefits of ROSA:
+
+- A Native AWS Experience: ROSA enables organizations to take advantage of the power of Openshift, the industry's leading enterprise Kubernetes platform, as a native AWS service from the AWS Management console. 
+- Easier Container Adoption & Cloud Migration: ROSA delivers enterprise-ready Kuberenetes that many companies already use on-premises today, enhancing the ability to shift workloads to the cloud and making it even easier for customers to adopt containers and deploy their applications faster on AWS.
+- Fully Managed Platform: Installation, monitoring, management, maintenance, and upgrades are performed by Red Hat site reliability engineers (SRE) covering the complete stack including the control plane, worker nodes, and key services.
+- Streamlined, integrated support & billing experience: Jointly operated & supported by Red Hat & AWS with an integrated support experience and 99.95% uptime SLA. Customers will also receive a single bill from AWS for both OpenShift & AWS consumption.
+- Maximum availability: Deploy clusters across multiple Availability Zones in supported Regions to maximize availability.
+- Regulatory compliance: Address comprehensive security and compliance needs with industry-specific standards and regulations such as SOC-1, SOC-2 Type 1 & 2 and ISO-27001.
 
 include::01-pattern.adoc[]
 
