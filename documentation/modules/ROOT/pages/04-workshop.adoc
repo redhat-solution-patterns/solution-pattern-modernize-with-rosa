@@ -5,9 +5,188 @@
 
 = Workshop
 
-what is this workshop and what will be learned
+In this workshop, we will deploy an application(OSToy) on our already existing ROSA cluster. After the deployment of the application, we will perform various activities to show that it is very easy to work with ROSA.
 
+[#install_workshop]
 == Installing the workshop environment
-=== Before getting started
-=== Installing the environment
-== Delivering the workshop
+We need a ROSA cluster with STS or we can create a cluster from https://demo.redhat.com/catalog?search=rosa&item=babylon-catalog-prod%2Fsandboxes-gpte.rosa.prod[here].
+
+[#workshop_steps]
+== Workshop Steps
+* Part A: Now using cli, we will create the following resources and follow these steps:
+1. A secret:
++
+[.console-input]
+[source,shell script]
+```
+oc create -f https://raw.githubusercontent.com/gmidha1/ostoy/master/deployment/yaml/secret.yaml
+```
++
+1. A configmap:
++
+[.console-input]
+[source,shell script]
+```
+oc create -f https://raw.githubusercontent.com/gmidha1/ostoy/master/deployment/yaml/configmap.yaml
+```
++
+1. A microservice, this microservice will be used by UI, hence we are deploying it first:
++
+[.console-input]
+[source,shell script]
+```
+oc new-app https://github.com/gmidha1/ostoy \
+    --context-dir=microservice \
+    --name=ostoy-microservice \
+    --labels=app=ostoy
+```
++
+1. UI Application:
++
+[.console-input]
+[source,shell script]
+```
+oc new-app https://github.com/gmidha1/ostoy \
+    --env=MICROSERVICE_NAME=OSTOY_MICROSERVICE
+```
++
+1. Expose the ostoy service using cli:
++
+[.console-input]
+[source,shell script]
+```
+oc create route edge --service=ostoy --insecure-policy=Redirect
+```
++
+1. Once pod is ready, get the route using cli:
++
+[.console-input]
+[source,shell script]
+```
+oc get route
+```
++
+1. Access the route for ostoy through a web browser, it will look like the below image:
++
+[link=ostoy.png, window="_blank"]
+image::ostoy.png[width=100%]
++
+1. Using the above UI, we can print logs(stdout & stderr) and we can crash the pod also. Once we have used the UI for the former steps, we can check the logs and pod status using the cli commands:
++
+[.console-input]
+[source,shell script]
+```
+oc get pods
+oc logs -f <pod-name>
+```
++
+1. Now, let us set the liveness probe using this cli command:
++
+[.console-input]
+[source,shell script]
+```
+oc set probe deploy ostoy --liveness --get-url=http://:8080/health
+```
++
+1. From the UI, using the Toggle health status, we can make the pod 
+unhealthy and it will restart the pod. We can check the pod status using this cli: 
++
+[.console-input]
+[source,shell script]
+```
+oc get po
+```
++
+Below screenshot shows that ostoy pod was restarted.
++
+[link=ostoyrestart.png, window="_blank"]
+image::ostoyrestart.png[width=100%]
+
+* Part B:
++
+1. In this screen of OSToy UI, we can view the environment variables available to the pod. 
++
+[link=ostoyenv.png, window="_blank"]
+image::ostoyenv.png[width=100%]
++
+1. Now by going here: ROSA console UI → workloads → Deployments → Project: default → ostoy → Environment. We can add the environment variable from a secret: ostoy-secret which we created earlier.
++
+[link=ostoyenvadd.png, window="_blank"]
+image::ostoyenvadd.png[width=100%]
++
+1. On successfully adding the secret, the pod will restart automatically. We will be able to see the new secret from OSToy frontend UI -> “Env Variables” as shown below:
++
+[link=ostoyenvaddview.png, window="_blank"]
+image::ostoyenvaddview.png[width=100%]
++
+1. Similarly, we can add ostoy-config using the above steps we used for adding the secret. Now config.json is available for the application to be used as an environment variable.
++
+[link=ostoyenvconfig.png, window="_blank"]
+image::ostoyenvconfig.png[width=100%]
+
+
+* Part C:
+In the next steps, we will see the networking tab features available on OSToy UI application:
+
+- Intra-cluster communication: It displays how many pods OSToy UI is able to interact within the cluster. Below picture shows, it is able to communicate with “ostoy-microservice” pod.
++
+[link=ostoynetwork.png, window="_blank"]
+image::ostoynetwork.png[width=100%]
++
+1. Now we will scale the deployment of ostoy-microservice to 2 using this cli command from terminal:
++
+[.console-input]
+[source,shell script]
+```
+oc scale deployment ostoy-microservice --replicas=2
+```
++
+1. We will watch the pod using cli:
++
+[.console-input]
+[source,shell script]
+```
+oc get pod -w
+```
++ 
+1. Once the pod is up, we will be able to see it in the OSToy frontend UI -> Networking as shown in below image:
++
+[link=ostoynetworkscale.png, window="_blank"]
+image::ostoynetworkscale.png[width=100%]
++
+Note: Please scale down the service as we will be scaling it up again in next part of workshop.
+
+- Hostname Lookup: Using this feature we can discover  ClusterIP and NodePort services through OpenShift DNS by using a hostname in the form of my-svc.my-namespace.svc.cluster.local. The DNS response will be the internal ClusterIP address. For example: we can use: “ostoy-microservice.default.svc.cluster.local” to test it.
++
+[link=ostoyhostname.png, window="_blank"]
+image::ostoyhostname.png[width=100%]
+
+* Part D:
+Now we will look at https://docs.openshift.com/container-platform/4.12/nodes/pods/nodes-pods-autoscaling.html[Horizontal Pod AutoScaler]. In OSToy UI, we will go to “Pod Auto Scaling”. This tab displays the number of microservices pod currently running. At present only one should be running.
+1. Using the below cli command, we will add the cpu and memory requests on ostoy-microservice deployment:
++
+[.console-input]
+[source,shell script]
+```
+oc set resources deployment ostoy-microservice --requests=cpu=100m,memory=256Mi
+```
++
+1. Now we will create a Horizontal Pod AutoScaler resource using this cli:
++
+[.console-input]
+[source,shell script]
+```
+oc autoscale deployment/ostoy-microservice --min=1 --max=3 --cpu-percent=50
+```
++
+1. After that using the OSToy UI, we can increase the load on microservice using the “Increase the load” button.
++
+1. After 2-3 mins, once the load has increased on the ostoy-microservice, Horizontal Pod AutoScaler resource will add more pods.
++
+1. Additional pods will be visible in OSToy Frontend UI, as shown below in the image.
++
+[link=ostoyscaling.png, window="_blank"]
+image::ostoyscaling.png[width=100%]
+
+
+This concludes our workshop, we can remove the resources which we created so far.

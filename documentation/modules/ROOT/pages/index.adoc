@@ -24,8 +24,8 @@ Let us see how ROSA differs from DIY Kubernetes:
 
 
 
-[#features]
-== Features & Benefits of ROSA
+[#benefits]
+== Benefits of ROSA
 
 Organizations are looking for a way to deliver high quality, innovative applications that provide greater business value and effectively scale according to rapidly changing demands. Here are the features & benefits of ROSA:
 

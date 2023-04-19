@@ -5,15 +5,17 @@
 
 = See the Solution in Action
 
+[#cluster-create-video]
 == Demonstration
 
 
 
-[#cluster-create-video]
+
 === ROSA Cluster Creation process:
 
 video::gAMr3sI5bdY[youtube, width=800, height=480]
 
+[#rosa_with_aws]
 == ROSA integration with AWS services:
 Here we will see how easily we can integrate AWS services with ROSA. Below are the walkthrough guides for integrating ROSA with different AWS services.
 

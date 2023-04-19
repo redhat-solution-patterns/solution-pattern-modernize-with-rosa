@@ -7,7 +7,7 @@ xref:index.adoc[{counter:module}. Solution Pattern]::
 +
 xref:index.adoc#whatisrosa[{counter:submodule1}. What is ROSA] +
 xref:index.adoc#rosavsk8s[{counter:submodule1}. How ROSA is different from DIY Kubernetes] +
-xref:index.adoc#features[{counter:submodule1}. Features & Benefits of ROSA] +
+xref:index.adoc#benefits[{counter:submodule1}. Benefits of ROSA] +
 xref:01-pattern.adoc#_the_story_behind_this_solution_pattern[{counter:submodule1}. The story behind this solution pattern] +
 xref:index.adoc#use-cases[{counter:submodule1}. Use cases] +
 xref:01-pattern#_the_solution[{counter:submodule1}. The solution] +
@@ -21,8 +21,8 @@ xref:02-architecture.adoc#rosaarchprivatelink[{counter:submodule2}. ROSA with AW
 +
 xref:03-demo.adoc[{counter:module}. Demonstration]::
 +
-xref:03-demo.adoc#_demonstration[{counter:submodule3}. Demonstration] +
-xref:03-demo.adoc#_walkthrough_guide[{counter:submodule3}. Walkthrough guide]
+xref:03-demo.adoc#cluster_create_video[{counter:submodule3}. Demonstration] +
+xref:03-demo.adoc#rosa_with_aws[{counter:submodule3}. ROSA integration with AWS services]
 +
 xref:04-workshop.adoc[{counter:module}. Workshop]::
 +
