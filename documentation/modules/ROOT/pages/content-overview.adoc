@@ -8,6 +8,7 @@ xref:index.adoc[{counter:module}. Solution Pattern]::
 xref:index.adoc#whatisrosa[{counter:submodule1}. What is ROSA] +
 xref:index.adoc#rosavsk8s[{counter:submodule1}. How ROSA is different from DIY Kubernetes] +
 xref:index.adoc#benefits[{counter:submodule1}. Benefits of ROSA] +
+xref:index.adoc#features[{counter:submodule1}. Features of ROSA] +
 xref:01-pattern.adoc#_the_story_behind_this_solution_pattern[{counter:submodule1}. The story behind this solution pattern] +
 xref:index.adoc#use-cases[{counter:submodule1}. Use cases] +
 xref:01-pattern#_the_solution[{counter:submodule1}. The solution] +
