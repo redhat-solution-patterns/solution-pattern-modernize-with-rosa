@@ -53,7 +53,45 @@ b. Availability:
 1. High Availability: Installation, monitoring, management, maintenance, and upgrades of clusters are performed by Red Hat site reliability engineers (SRE) covering the complete stack including the control plane, worker nodes and key services. You can also deploy clusters across multiple Availability Zones in supported regions to maximize availability.
 +
 1. Joint Support: ROSA is jointly supported by Red Hat and AWS with an integrated support experience and 99.95% uptime SLA. You can either contact AWS support via the Support Center accessible from the AWS console (https://console.aws.amazon.com/support/), or you can open a support case via Red Hat's Customer Portal (https://access.redhat.com) where you will also find self-service support articles and up to date phone contact information.
+
+
+c. Durability:
 +
+* Backup & Recovery: All Red Hat OpenShift Service on AWS cluster metadata from OpenShift Cluster Manager is securely backed up by Red Hat. Red Hat does not commit to any Recovery Point Objective (RPO) or Recovery Time Objective (RTO). Customers are responsible for taking regular backups of their data. Customers should deploy multi-AZ clusters with workloads that follow Kubernetes best practices to ensure high availability within a region. If an entire cloud region is unavailable, customers must install a new cluster in a different region and restore their apps using their backup data. The following table outlines backup and recovery strategies:
++
+[link=ostoybackup.png, window="_blank"]
+image::ostoybackup.png[width=100%]
+
+d. Scalability:
++
+* Autoscaling: Node autoscaling is available on Red Hat OpenShift Service on AWS. You can configure the autoscaler option to automatically scale the number of machines in a cluster. The cluster autoscaler increases the size of the cluster when there are pods that failed to schedule on any of the current nodes due to insufficient resources or when another node is necessary to meet deployment needs. The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.
++
+Additionally, the cluster autoscaler decreases the size of the cluster when some nodes are consistently not needed for a significant period, such as when it has low resource use and all of its important pods can fit on other nodes. When you enable autoscaling, you must also set a minimum and maximum number of worker nodes.
+
+e. Performance:
++
+* Platform monitoring: Red Hat site reliability engineers (SREs) maintain a centralized monitoring and alerting system for all ROSA cluster components, the SRE services, and underlying AWS accounts. Platform audit logs are securely forwarded to a centralized security information and event monitoring (SIEM) system, where they may trigger configured alerts to the SRE team and are also subject to manual review. Audit logs are retained in the SIEM system for one year. Audit logs for a given cluster are not deleted at the time the cluster is deleted.
+
+f. Ease of install and upgrade:
++
+1. Installation: Customers can easily deploy fully managed Red Hat Openshift          service in AWS cloud. Red hat has worked closely with Amazon to integrate this service via AWS management console allowing existing amazon customers to onboard Openshift capabilities by a simple subscription with all billing centralized just as it is today.
++
+1. Upgrade: Red Hat provides a published product life cycle for Red Hat OpenShift Service on AWS in order for customers and partners to effectively plan, deploy, and support their applications running on the platform. Red Hat publishes this life cycle in order to provide as much transparency as possible and might make exceptions from these policies as conflicts arise.
++
+Red Hat OpenShift Service on AWS is a managed instance of Red Hat OpenShift and maintains an independent release schedule. The availability of Security Advisories and Bug Fix Advisories for a specific version are dependent upon the Red Hat OpenShift Container Platform life cycle policy and subject to the Red Hat OpenShift Service on AWS maintenance schedule.
+
+g. Red Hat Openshift Cluster Manager:
++
+1. Red Hat OCM: Red Hat OpenShift Cluster Manager is a managed service where you can install, modify, operate, and upgrade your Red Hat OpenShift clusters. This service allows you to work with all of your organization’s clusters from a single dashboard.
++
+OpenShift Cluster Manager guides you to install OpenShift Container Platform, Red Hat OpenShift Service on AWS (ROSA), and OpenShift Dedicated clusters. It is also responsible for managing both OpenShift Container Platform clusters after self-installation as well as your ROSA and OpenShift Dedicated clusters. You can use OpenShift Cluster Manager to do the following actions:
++
+- Create new clusters
+- View cluster details and metrics
+- Manage your clusters with tasks such as scaling, changing node labels, networking, authentication
+- Manage access control
+- Monitor clusters
+- Schedule upgrades
 
 
 include::01-pattern.adoc[]
