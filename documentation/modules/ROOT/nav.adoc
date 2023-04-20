@@ -1,6 +1,7 @@
 * xref:index.adoc[{counter:module}. Home page]
 ** xref:index.adoc#whatisrosa[{module}.{counter:submodule1} What is ROSA]
 ** xref:index.adoc#rosavsk8s[{module}.{counter:submodule1} How ROSA is different from DIY Kubernetes]
+** xref:index.adoc#rosaatscale[{counter:submodule1}. How ROSA is being used at global scale]
 ** xref:index.adoc#benefits[{module}.{counter:submodule1} Benefits of ROSA]
 ** xref:index.adoc#features[{module}.{counter:submodule1} Features of ROSA]
 ** xref:01-pattern.adoc#_the_story_behind_this_solution_pattern[{module}.{counter:submodule1} The story behind this solution pattern]

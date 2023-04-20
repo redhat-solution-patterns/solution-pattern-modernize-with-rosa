@@ -22,7 +22,11 @@ Let us see how ROSA differs from DIY Kubernetes:
 - ROSA is a Managed Application platform: DIY Kubernetes can be tricky to get it up and running. There are many options and configurations available to customize the Kubernetes clusters as per the requirements. To setup different environments and make those available quickly with strong security posture is no small task. It can take a whole team of people to keep such systems up and running. ROSA provides a higher class of service, support and hosting , along with enhanced securityy capabilities. With Red Hat's SRE running the infrastructure, Application team can focus on the applications instead of spending time standing up and installing systems so that container workloads can be deployed on those clusters.    
 - ROSA provides automation and management: With tools like Ansible, Argo CD and Git, nearly any workflow can be automated into a pipeline. But this level of automation takes time to build and customize, just like any infrastructure. For teams that aren't yet specialized in the new "cloudy" way of building software abd even for teams that would rather spend their cycles away from infrastructure, Red Hat Openshift Service on AWS features helpful automation tools and processes to help speed up the process. Instead of building your development pipelines from scratch, ROSA can tie in your existing systems and tools, such as GitHub and Ansible. Even better, our SREs have constructed patterns for your developers to use, with pre-configured versions of essential infrastructure ready to go at the drop of a hat. 
 
-
+[#rosaatscale]
+== How ROSA is being used at global scale
+Below picture depicts the usage of ROSA clusters across different countries:
+[link=rosaatscale.png, window="_blank"]
+image::rosaatscale.png[width=100%]
 
 [#benefits]
 == Benefits of ROSA
