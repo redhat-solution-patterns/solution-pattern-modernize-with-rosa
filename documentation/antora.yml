@@ -1,5 +1,5 @@
-name: solution-pattern-template
-title: Template Tutorial
+name: solution-pattern-rosa
+title: Red Hat Openshift Service on AWS(ROSA)
 version: master
 nav:
   - modules/ROOT/nav.adoc

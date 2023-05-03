@@ -1,7 +1,27 @@
 == The story behind this solution pattern
 
-A description of the story that was used to build the demo and architectures of this SP.
+Red Hat OpenShift Service on AWS (ROSA) is for customers who want an
+OpenShift experience in AWS with close integration to AWS services, joint
+support, and a single bill. It helps ensure consistency across environments and
+is jointly managed and supported by Red Hat and AWS. It can be purchased directly
+through the AWS console and offers pay-as-you-go, single-vendor
+invoicing. Its key differentiators:
+
+- Built for the hybrid cloud
+• Public cloud, on-premise, or at the edge.
+• Centralized management that spans across hosting environments.
+
+- Complete, hardened, and supported platform for modern
+applications
+• Whole-product solution integrating all tools required for the full
+software development life cycle.
+• Range of metering, monitoring, and observability capabilities.
+
+- Broad open source and ISV ecosystem
+• Supported and deployed through the OpenShift Operator Framework with a choice of toolsets to help automate and integrate
+operations.
 
 == The Solution
 
-This is a summary of the solution
+This solution pattern demonstrates different features of Red Hat OpenShift Service on AWS and how well it integrates with different AWS services. In this pattern, we will look at ROSA's architecture with public/private network as well as with AWS PrivateLink. At the end, we will deploy an application(OSToy) and perform various activities on this application as part of the workshop to demonstrates how easy it is work with ROSA. 
+
