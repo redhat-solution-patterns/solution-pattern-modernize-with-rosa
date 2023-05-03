@@ -198,7 +198,7 @@ EOF
 [link=rosacw.png, window="_blank"]
 image::rosacw.png[width=100%]
 
-=== IAM(STS only)
+=== IAM (STS only)
 1. What is AWS STS:
 +
 AWS provides AWS Security Token Service (AWS STS) as a web service that enables us to request temporary, limited-privilege credentials for users or for users we authenticate (federated users).
@@ -226,7 +226,7 @@ In addition to the above, Operators in the cluster use the following process to 
 [link=awssts2.png, window="_blank"]
 image::awssts2.png[width=100%]
 
-=== ACK(AWS Controllers for Kubernetes):
+=== ACK (AWS Controllers for Kubernetes):
 
 AWS Controllers for Kubernetes (ACK) is an open-source project which defines a framework to build custom controllers (or Kubernetes Operators) for AWS services. These custom controllers enable developers to define, create, deploy, control, update, delete, and manage Amazon services directly from inside the Kubernetes clusters. So, instead of separately managing the containerized applications on Kubernetes clusters, and the associated AWS services (eg. S3 bucket, database, ElastiCache etc), ACK controllers now allow centralized management through the Kubernetes CLI. Developers can now manage both Kubernetes-native applications as well as the resources the application depends on, using the same Kubernetes API.
 

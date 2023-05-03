@@ -13,11 +13,10 @@ ROSA supports the following network configuration types:
 
 - Public Network
 - Private Network
-- AWS PrivateLink
 
 
-[#rosaarchpublicnprivate]
-== ROSA on public and private networks
+[#rosaarchpublic]
+== ROSA on public networks
 
 We can install ROSA using either a public or private network. We can configure a private cluster and private network connection during or after the cluster creation process. Red Hat manages the cluster with limited access through a public network.
 
@@ -26,7 +25,7 @@ image::rosaarch.png[width=100%]
 
 
 [#rosaarchprivatelink]
-== ROSA with AWS PrivateLink
+== ROSA on private networks with AWS PrivateLink
 
 We can create a cluster using AWS PrivateLink, which is hosted on private subnets only. Red Hat managed infrastructure that creates AWS PrivateLink clusters is hosted on private subnets. The connection between Red Hat and the customer-provided infrastructure is created through AWS PrivateLink VPC endpoints.
 

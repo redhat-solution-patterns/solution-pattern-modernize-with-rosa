@@ -52,6 +52,8 @@ a. Security:
 1. Compliance: ROSA is currently compliant with SOC-1, SOC-2 type 1 & type 2, ISO-27001, & PCI-DSS. We are also currently working towards FedRAMP High, HIPAA, ISO 27017 and ISO 27018.
 +
 1. Vulnerability Management: Red Hat performs periodic vulnerability scanning of ROSA using industry standard tools. Identified vulnerabilities are tracked to their remediation according to timelines based on severity. Vulnerability scanning and remediation activities are documented for verification by third-party assessors in the course of compliance certification audits.
++
+1. STS: ROSA utilizes AWS Security Token Service for all of the AWS IAM roles it uses to reach the AWS API. This allows the platform to address the principle of least privilege in customer accounts. Instead of each cluster requiring a single high-privilege role, each component of the cluster has as a role and policy with the specific permission actions required.
 b. Availability:
 +
 1. High Availability: Installation, monitoring, management, maintenance, and upgrades of clusters are performed by Red Hat site reliability engineers (SRE) covering the complete stack including the control plane, worker nodes and key services. You can also deploy clusters across multiple Availability Zones in supported regions to maximize availability.
