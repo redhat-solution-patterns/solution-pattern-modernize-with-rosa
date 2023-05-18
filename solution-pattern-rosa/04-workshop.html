@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-rosa/04-workshop.html">
+    <link rel="prev" href="03-demo.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat-solution-patterns.github.io/" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://red.ht/enhance-with-cdc">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="https://red.ht/enhance-with-eda">Enhancing Applications with Application Services</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-rosa" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Red Hat Openshift Service on AWS(ROSA)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#whatisrosa">1.1 What is ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#rosavsk8s">1.2 How ROSA is different from DIY Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#rosaatscale">3. How ROSA is being used at global scale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#benefits">1.4 Benefits of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#features">1.5 Features of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.6 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_solution">1.7 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.8 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarch">2.1. ROSA Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchpublicnprivate">2.2. ROSA on public and private networks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchprivatelink">2.3. ROSA with AWS PrivateLink</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#cluster_create_video">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#rosa_with_aws">3.2. ROSA integration with AWS services</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#install_workshop">4.1. Installing the workshop environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#workshop_steps">4.2. Workshop Steps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Red Hat Openshift Service on AWS(ROSA)</a></li>
+    <li><a href="04-workshop.html">4. Workshop</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/gmidha1/solution-pattern-rosa/edit/main/documentation/modules/ROOT/pages/04-workshop.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Pattern: Name Template</h1>
+<h1 id="_workshop" class="sect0"><a class="anchor" href="#_workshop"></a><a class="link" href="#_workshop">Workshop</a></h1>
+<div class="openblock partintro">
+<div class="content">
+In this workshop, we will deploy an application(OSToy) on our already existing ROSA cluster. After the deployment of the application, we will perform various activities to show that it is very easy to work with ROSA.
+</div>
+</div>
+<div class="sect1">
+<h2 id="install_workshop"><a class="anchor" href="#install_workshop"></a><a class="link" href="#install_workshop">1. Installing the workshop environment</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We need a ROSA cluster with STS or we can create a cluster from <a href="https://demo.redhat.com/catalog?search=rosa&amp;item=babylon-catalog-prod%2Fsandboxes-gpte.rosa.prod">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="workshop_steps"><a class="anchor" href="#workshop_steps"></a><a class="link" href="#workshop_steps">2. Workshop Steps</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Part A: Now using cli, we will create the following resources and follow these steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A secret:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc create -f https://raw.githubusercontent.com/gmidha1/ostoy/master/deployment/yaml/secret.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A configmap:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc create -f https://raw.githubusercontent.com/gmidha1/ostoy/master/deployment/yaml/configmap.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>A microservice, this microservice will be used by UI, hence we are deploying it first:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc new-app https://github.com/gmidha1/ostoy \
+    --context-dir=microservice \
+    --name=ostoy-microservice \
+    --labels=app=ostoy</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>UI Application:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc new-app https://github.com/gmidha1/ostoy \
+    --env=MICROSERVICE_NAME=OSTOY_MICROSERVICE</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Expose the ostoy service using cli:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc create route edge --service=ostoy --insecure-policy=Redirect</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once pod is ready, get the route using cli:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc get route</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Access the route for ostoy through a web browser, it will look like the below image:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoy.png" target="_blank" rel="noopener"><img src="_images/ostoy.png" alt="ostoy" width="100%"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Using the above UI, we can print logs(stdout &amp; stderr) and we can crash the pod also. Once we have used the UI for the former steps, we can check the logs and pod status using the cli commands:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc get pods
+oc logs -f &lt;pod-name&gt;</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, let us set the liveness probe using this cli command:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc set probe deploy ostoy --liveness --get-url=http://:8080/health</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>From the UI, using the Toggle health status, we can make the pod
+unhealthy and it will restart the pod. We can check the pod status using this cli:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc get po</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Below screenshot shows that ostoy pod was restarted.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyrestart.png" target="_blank" rel="noopener"><img src="_images/ostoyrestart.png" alt="ostoyrestart" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Part B:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In this screen of OSToy UI, we can view the environment variables available to the pod.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyenv.png" target="_blank" rel="noopener"><img src="_images/ostoyenv.png" alt="ostoyenv" width="100%"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Now by going here: ROSA console UI → workloads → Deployments → Project: default → ostoy → Environment. We can add the environment variable from a secret: ostoy-secret which we created earlier.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyenvadd.png" target="_blank" rel="noopener"><img src="_images/ostoyenvadd.png" alt="ostoyenvadd" width="100%"></a>
+</div>
+</div>
+</li>
+<li>
+<p>On successfully adding the secret, the pod will restart automatically. We will be able to see the new secret from OSToy frontend UI &#8594; “Env Variables” as shown below:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyenvaddview.png" target="_blank" rel="noopener"><img src="_images/ostoyenvaddview.png" alt="ostoyenvaddview" width="100%"></a>
+</div>
+</div>
+</li>
+<li>
+<p>Similarly, we can add ostoy-config using the above steps we used for adding the secret. Now config.json is available for the application to be used as an environment variable.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyenvconfig.png" target="_blank" rel="noopener"><img src="_images/ostoyenvconfig.png" alt="ostoyenvconfig" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Part C:
+In the next steps, we will see the networking tab features available on OSToy UI application:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Intra-cluster communication: It displays how many pods OSToy UI is able to interact within the cluster. Below picture shows, it is able to communicate with “ostoy-microservice” pod.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoynetwork.png" target="_blank" rel="noopener"><img src="_images/ostoynetwork.png" alt="ostoynetwork" width="100%"></a>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Now we will scale the deployment of ostoy-microservice to 2 using this cli command from terminal:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc scale deployment ostoy-microservice --replicas=2</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We will watch the pod using cli:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc get pod -w</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Once the pod is up, we will be able to see it in the OSToy frontend UI &#8594; Networking as shown in below image:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoynetworkscale.png" target="_blank" rel="noopener"><img src="_images/ostoynetworkscale.png" alt="ostoynetworkscale" width="100%"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: Please scale down the service as we will be scaling it up again in next part of workshop.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Hostname Lookup: Using this feature we can discover  ClusterIP and NodePort services through OpenShift DNS by using a hostname in the form of my-svc.my-namespace.svc.cluster.local. The DNS response will be the internal ClusterIP address. For example: we can use: “ostoy-microservice.default.svc.cluster.local” to test it.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyhostname.png" target="_blank" rel="noopener"><img src="_images/ostoyhostname.png" alt="ostoyhostname" width="100%"></a>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Part D:
+Now we will look at <a href="https://docs.openshift.com/container-platform/4.12/nodes/pods/nodes-pods-autoscaling.html">Horizontal Pod AutoScaler</a>. In OSToy UI, we will go to “Pod Auto Scaling”. This tab displays the number of microservices pod currently running. At present only one should be running.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using the below cli command, we will add the cpu and memory requests on ostoy-microservice deployment:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc set resources deployment ostoy-microservice --requests=cpu=100m,memory=256Mi</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now we will create a Horizontal Pod AutoScaler resource using this cli:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc autoscale deployment/ostoy-microservice --min=1 --max=3 --cpu-percent=50</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>After that using the OSToy UI, we can increase the load on microservice using the “Increase the load” button.</p>
+</li>
+<li>
+<p>After 2-3 mins, once the load has increased on the ostoy-microservice, Horizontal Pod AutoScaler resource will add more pods.</p>
+</li>
+<li>
+<p>Additional pods will be visible in OSToy Frontend UI, as shown below in the image.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoyscaling.png" target="_blank" rel="noopener"><img src="_images/ostoyscaling.png" alt="ostoyscaling" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This concludes our workshop, we can remove the resources which we created so far.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="03-demo.html" class="query-params-link">3. See the Solution in Action</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

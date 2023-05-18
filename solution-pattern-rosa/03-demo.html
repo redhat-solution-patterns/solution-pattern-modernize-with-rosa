@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Pattern: Name Template :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-rosa/03-demo.html">
+    <link rel="prev" href="02-architecture.html">
+    <link rel="next" href="04-workshop.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat-solution-patterns.github.io/" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://red.ht/enhance-with-cdc">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="https://red.ht/enhance-with-eda">Enhancing Applications with Application Services</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-rosa" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Red Hat Openshift Service on AWS(ROSA)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#whatisrosa">1.1 What is ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#rosavsk8s">1.2 How ROSA is different from DIY Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#rosaatscale">3. How ROSA is being used at global scale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#benefits">1.4 Benefits of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#features">1.5 Features of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.6 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_solution">1.7 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="index.html#_content_overview">1.8 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarch">2.1. ROSA Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchpublicnprivate">2.2. ROSA on public and private networks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchprivatelink">2.3. ROSA with AWS PrivateLink</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#cluster_create_video">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#rosa_with_aws">3.2. ROSA integration with AWS services</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#install_workshop">4.1. Installing the workshop environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#workshop_steps">4.2. Workshop Steps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Red Hat Openshift Service on AWS(ROSA)</a></li>
+    <li><a href="03-demo.html">3. See the Solution in Action</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/gmidha1/solution-pattern-rosa/edit/main/documentation/modules/ROOT/pages/03-demo.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Pattern: Name Template</h1>
+<h1 id="_see_the_solution_in_action" class="sect0"><a class="anchor" href="#_see_the_solution_in_action"></a><a class="link" href="#_see_the_solution_in_action">See the Solution in Action</a></h1>
+<div class="sect1">
+<h2 id="cluster-create-video"><a class="anchor" href="#cluster-create-video"></a><a class="link" href="#cluster-create-video">1. Demonstration</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_rosa_cluster_creation_process"><a class="anchor" href="#_rosa_cluster_creation_process"></a><a class="link" href="#_rosa_cluster_creation_process">1.1. ROSA Cluster Creation process:</a></h3>
+<div class="videoblock">
+<div class="content">
+<iframe width="800" height="480" src="https://www.youtube.com/embed/gAMr3sI5bdY?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rosa_with_aws"><a class="anchor" href="#rosa_with_aws"></a><a class="link" href="#rosa_with_aws">2. ROSA integration with AWS services:</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here we will see how easily we can integrate AWS services with ROSA. Below are the walkthrough guides for integrating ROSA with different AWS services.</p>
+</div>
+<div class="sect2">
+<h3 id="_cloudwatch"><a class="anchor" href="#_cloudwatch"></a><a class="link" href="#_cloudwatch">2.1. CloudWatch</a></h3>
+<div class="paragraph">
+<p>We can easily set up ROSA to forward logs to Cloudwatch and view those logs from there. Below are the steps used to configure the Cloudwatch logging with STS:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the following commands to get the environment variables setup:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">export ROSA_CLUSTER_NAME=$(oc get infrastructure cluster -o=jsonpath="{.status.infrastructureName}"  | sed 's/-[a-z0-9]\+$//')
+export REGION=$(rosa describe cluster -c ${ROSA_CLUSTER_NAME} --output json | jq -r .region.id)
+export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer | sed  's|^https://||')
+export AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
+export AWS_PAGER=""
+export SCRATCH="/tmp/${ROSA_CLUSTER_NAME}/clf-cloudwatch-sts"
+mkdir -p ${SCRATCH}
+echo "Cluster: ${ROSA_CLUSTER_NAME}, Region: ${REGION}, OIDC Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create an IAM policy and Role to be used by ClusterLogForwarder. Attach the IAM policy to the role.</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">POLICY_ARN=$(aws iam list-policies --query "Policies[?PolicyName=='RosaCloudWatch'].{ARN:Arn}" --output text)
+
+if [[ -z "${POLICY_ARN}" ]]; then
+cat &lt;&lt; EOF &gt; ${SCRATCH}/policy.json
+{
+"Version": "2012-10-17",
+"Statement": [
+   {
+         "Effect": "Allow",
+         "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+  			"logs:DescribeLogGroups",
+    		"logs:DescribeLogStreams",
+    		"logs:PutLogEvents",
+       		"logs:PutRetentionPolicy"
+     		],
+    	"Resource": "arn:aws:logs:*:*:*"
+   }
+]
+}
+EOF
+
+POLICY_ARN=$(aws iam create-policy --policy-name "RosaCloudWatch" \
+--policy-document file:///${SCRATCH}/policy.json --query Policy.Arn --output text)
+fi
+
+echo ${POLICY_ARN}
+
+cat &lt;&lt;EOF &gt; ${SCRATCH}/trust-policy.json
+{
+   "Version": "2012-10-17",
+   "Statement": [{
+     "Effect": "Allow",
+     "Principal": {
+       "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_ENDPOINT}"
+     },
+     "Action": "sts:AssumeRoleWithWebIdentity",
+     "Condition": {
+       "StringEquals": {
+         "${OIDC_ENDPOINT}:sub": "system:serviceaccount:openshift-logging:logcollector"
+       }
+     }
+   }]
+}
+EOF
+
+ROLE_ARN=$(aws iam create-role --role-name "${ROSA_CLUSTER_NAME}-RosaCloudWatch" \
+   --assume-role-policy-document file://${SCRATCH}/trust-policy.json \
+   --query Role.Arn --output text)
+
+echo ${ROLE_ARN}
+
+aws iam attach-role-policy --role-name "${ROSA_CLUSTER_NAME}-RosaCloudWatch" \
+--policy-arn ${POLICY_ARN}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Deploy the Cluster Logging operator using the below commands:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat &lt;&lt; EOF | oc apply -f -
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+   operators.coreos.com/cluster-logging.openshift-logging: ""
+  name: cluster-logging
+  namespace: openshift-logging
+spec:
+  channel: stable
+  installPlanApproval: Automatic
+  name: cluster-logging
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a secret which will be used by cluster log forwarding resource:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat &lt;&lt; EOF | oc apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudwatch-credentials
+  namespace: openshift-logging
+stringData:
+  role_arn: $ROLE_ARN
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create cluster log forwarding resource</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat &lt;&lt; EOF | oc apply -f -
+apiVersion: "logging.openshift.io/v1"
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  outputs:
+    - name: cw
+      type: cloudwatch
+      cloudwatch:
+        groupBy: namespaceName
+        groupPrefix: rosa-${ROSA_CLUSTER_NAME}
+        region: ${REGION}
+      secret:
+        name: cloudwatch-credentials
+  pipelines:
+     - name: to-cloudwatch
+       inputRefs:
+         - infrastructure
+         - audit
+         - application
+       outputRefs:
+         - cw
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a cluster logging resource</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat &lt;&lt; EOF | oc apply -f -
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogging
+Metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  collection:
+    logs:
+      type: fluentd
+ 	  forwarder:
+  		fluentd: {}
+  managementState: Managed
+EOF</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now we can check the logs in Cloudwatch console, as shown in the below image. In this image, mycluster1331 is the name of ROSA cluster used here for demonstration.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="rosacw.png" target="_blank" rel="noopener"><img src="_images/rosacw.png" alt="rosacw" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_iam_sts_only"><a class="anchor" href="#_iam_sts_only"></a><a class="link" href="#_iam_sts_only">2.2. IAM (STS only)</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>What is AWS STS:</p>
+<div class="paragraph">
+<p>AWS provides AWS Security Token Service (AWS STS) as a web service that enables us to request temporary, limited-privilege credentials for users or for users we authenticate (federated users).
+In this case AWS STS can be used to grant the ROSA service, limited, short term access, to resources in your AWS account. After these credentials expire (typically an hour after being requested), they are no longer recognized by AWS and they no longer have any kind of account access from API requests made with them.</p>
+</div>
+</li>
+<li>
+<p>What is OIDC:</p>
+<div class="paragraph">
+<p>OIDC provides a mechanism for cluster operators to authenticate with AWS in order to assume the cluster roles (via a trust policy) and obtain temporary credentials from STS in order to make the required API calls.</p>
+</div>
+</li>
+<li>
+<p>How secure is AWS STS:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Explicit and limited set of roles and policies - the user creates them ahead of time and knows exactly every permission asked for and every role used.</p>
+</li>
+<li>
+<p>The service cannot do anything outside of those permissions.</p>
+</li>
+<li>
+<p>Whenever the service needs to perform an action it obtains credentials that will expire in at most 1 hour. Meaning there is no need to rotate or revoke credentials and their expiration reduces the risks of credentials leaking and being reused.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>How does ROSA work with STS:</p>
+<div class="paragraph">
+<p>Assuming we have a ROSA cluster with STS in place. When a role is needed, the workload, currently using the Red Hat role, will assume the role in the AWS account, obtain temporary credentials from AWS STS and begin performing the actions (via API calls) within the customer&#8217;s AWS account as permitted by the assumed role’s permissions policy. It should be noted that these credentials are temporary and have a maximum duration of 1 hour.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="awssts.png" target="_blank" rel="noopener"><img src="_images/awssts.png" alt="awssts" width="100%"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>In addition to the above, Operators in the cluster use the following process to get credentials in order to perform their required tasks. Each operator has an operator role, a permissions policy and a trust policy with an OIDC provider. The operator will assume-role by passing a JWT that contains the role and a token file (web_identity_token_file) to the OIDC provider, which then authenticates the signed key with a public key (created at cluster creation time and was stored in an S3 bucket). It will then confirm that the subject in the signed token file that was sent matches the role in the role trust policy (this way we ensure you only can get the role allowed). Then it will return the temporary credentials to the operator so that it can make AWS API calls. Here is an illustration of this concept:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="awssts2.png" target="_blank" rel="noopener"><img src="_images/awssts2.png" alt="awssts2" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ack_aws_controllers_for_kubernetes"><a class="anchor" href="#_ack_aws_controllers_for_kubernetes"></a><a class="link" href="#_ack_aws_controllers_for_kubernetes">2.3. ACK (AWS Controllers for Kubernetes):</a></h3>
+<div class="paragraph">
+<p>AWS Controllers for Kubernetes (ACK) is an open-source project which defines a framework to build custom controllers (or Kubernetes Operators) for AWS services. These custom controllers enable developers to define, create, deploy, control, update, delete, and manage Amazon services directly from inside the Kubernetes clusters. So, instead of separately managing the containerized applications on Kubernetes clusters, and the associated AWS services (eg. S3 bucket, database, ElastiCache etc), ACK controllers now allow centralized management through the Kubernetes CLI. Developers can now manage both Kubernetes-native applications as well as the resources the application depends on, using the same Kubernetes API.</p>
+</div>
+<div class="paragraph">
+<p>Here’s an example of a Postgres RDS database. Notice that the password is sourced from a Kubernetes Secret named “rds-postgresql-user-creds” in the “production” namespace. The application also running in the namespace can also import this secret to connect to the database.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: example-database
+spec:
+  allocatedStorage: 20
+  dbInstanceClass: db.t3.micro
+  dbInstanceIdentifier: example-database
+  engine: postgres
+  engineVersion: "14"
+  masterUsername: myusername
+  masterUserPassword:
+    namespace: production
+    name: rds-postgresql-user-creds
+    key: password</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These ACK controllers help developers save time as now they can provision and manage AWS resources directly from inside their Kubernetes cluster. This allows them to focus on code and delivering business value quickly, instead of wasting time managing Kubernetes and AWS resources separately. Being able to access and manage resources from inside the Kubernetes cluster also lends itself well to applying the GitOps principles with mixed container and cloud resources. It also helps give them visibility into the entire application stack, as well as giving them a smoother experience overall.</p>
+</div>
+<div class="paragraph">
+<p>The cool part is that these ACK Controllers are now available in Red Hat OpenShift and Red Hat OpenShift Service on AWS (ROSA), as a result of the deep collaboration between AWS and Red Hat.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ack.png" target="_blank" rel="noopener"><img src="_images/ack.png" alt="ack" width="100%"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>OpenShift and ROSA customers who have an AWS account and use AWS resources (S3 buckets, ElastiCache, DynamoDB etc.) can now access these ACK controllers and manage their services from inside their OpenShift and ROSA clusters! They can install the AWS service-specific controller into the cluster and start managing the resources and create more resources right in the cluster, making their OpenShift experience very consistent, regardless of the task. These SaaS Operators further open up newer ways to consume OpenShift and a variety of services that applications will need from other cloud providers. It helps provide developers a truly hybrid experience. Red Hat and AWS engineers helped automate the generation of a lot of these operators that are now visible in OpenShift and ROSA.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ack2.png" target="_blank" rel="noopener"><img src="_images/ack2.png" alt="ack2" width="100%"></a>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_amazon_s3simple_storage_service"><a class="anchor" href="#_amazon_s3simple_storage_service"></a><a class="link" href="#_amazon_s3simple_storage_service">2.4. Amazon S3(Simple Storage Service)</a></h3>
+<div class="paragraph">
+<p>IAM supports federated identities using an OpenID Connect (OIDC) identity provider. This feature allows customers to authenticate AWS API calls with supported identity providers and receive a valid OIDC JSON web token (JWT). PODs can request and pass this token to the AWS STS AssumeRoleWithWebIdentityAPI operation and receive temporary IAM role credentials.</p>
+</div>
+<div class="paragraph">
+<p>Here we will see how ROSA with STS enabled can use IAM roles for service accounts to provide access for a Kubernetes pod to an Amazon Simple Storage Service (Amazon S3) bucket.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the following commands to create a service account and associate an IAM role to it. Here my ROSA Cluster name is mycluster223.</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">export ROSA_CLUSTER_NAME=mycluster223
+export SERVICE="s3"
+export AWS_REGION=us-east-1
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export APP_NAMESPACE=iam-app
+export APP_SERVICE_ACCOUNT_NAME=iam-app-$SERVICE-sa
+export OIDC_PROVIDER=$(oc get authentication.config.openshift.io cluster -o json | jq -r .spec.serviceAccountIssuer | sed 's/https:\/\///')
+
+export OIDC_PROVIDER=$(oc get authentication.config.openshift.io cluster -ojson | jq -r .spec.serviceAccountIssuer | sed 's/https:\/\///')
+
+oc  new-project $APP_NAMESPACE
+oc create serviceaccount $APP_SERVICE_ACCOUNT_NAME -n $APP_NAMESPACE
+
+$ cat &lt;&lt;EOF &gt; ./trust.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER}"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "${OIDC_PROVIDER}:sub": "system:serviceaccount:${APP_NAMESPACE}:${APP_SERVICE_ACCOUNT_NAME}"
+        }
+      }
+    }
+  ]
+}
+EOF
+
+export APP_IAM_ROLE="iam-app-${SERVICE}-role"
+export APP_IAM_ROLE_ROLE_DESCRIPTION='IRSA role for APP $SERVICE deployment on ROSA cluster'
+aws iam create-role --role-name "${APP_IAM_ROLE}" --assume-role-policy-document file://trust.json --description "${APP_IAM_ROLE_ROLE_DESCRIPTION}"
+APP_IAM_ROLE_ARN=$(aws iam get-role --role-name=$APP_IAM_ROLE --query Role.Arn --output text)
+
+POLICY_ARN=$(aws iam list-policies --query 'Policies[?PolicyName==`AmazonS3FullAccess`].Arn' --output text)
+aws iam attach-role-policy --role-name "${APP_IAM_ROLE}" --policy-arn "${POLICY_ARN}" &gt; /dev/null
+export IRSA_ROLE_ARN=eks.amazonaws.com/role-arn=$APP_IAM_ROLE_ARN
+oc annotate serviceaccount -n $APP_NAMESPACE $APP_SERVICE_ACCOUNT_NAME $IRSA_ROLE_ARN</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We can describe the service account to see the details:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc describe serviceaccount $APP_SERVICE_ACCOUNT_NAME -n $APP_NAMESPACE</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now we will deploy one deployment to test the S3 access:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">cat &lt;&lt;EOF | oc create -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ${APP_NAMESPACE}
+  name: awscli
+  labels:
+    app: awscli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: awscli
+  template:
+    metadata:
+      labels:
+        app: awscli
+    spec:
+      containers:
+        - image: amazon/aws-cli:latest
+          name: awscli
+          command:
+            - /bin/sh
+            - "-c"
+            - while true; do sleep 10; done
+          env:
+            - name: HOME
+              value: /tmp
+      serviceAccount: ${APP_SERVICE_ACCOUNT_NAME}
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When using a Web Identity, the AWS clients and SDKs look for environment variables called AWS_WEB_IDENTITY_TOKEN_FILE and AWS_ROLE_ARN. For the Python Boto3 SDK, this is documented <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html#assume-role-with-web-identity-provider">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://github.com/aws/amazon-eks-pod-identity-webhook/">EKS Pod Identity Webhook</a> running in the OpenShift cluster can place these variables within a running pod for us as long as a service account with an IAM role defined has been attached to your pod. For the demonstration: workload running in our ROSA cluster, we can see these variables have been successfully inserted into the pod by running:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">oc describe pod $(oc get pod -l app=awscli -o jsonpath='{.items[0].metadata.name}') | grep "^\s*AWS_"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a S3 bucket(may be from AWS Console or a terminal outside ROSA):</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">export S3_BUCKET_NAME=$ROSA_CLUSTER_NAME-iam-app
+aws s3api create-bucket --bucket $S3_BUCKET_NAME --region $AWS_REGION --create-bucket-configuration LocationConstraint=$AWS_REGION &gt; /dev/null</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we will get the running pod and use that to access the S3 created in the previous step. This screenshot shows us what it will look like.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="s3.png" target="_blank" rel="noopener"><img src="_images/s3.png" alt="s3" width="100%"></a>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-architecture.html" class="query-params-link">2. Architecture</a></span>
+  <span class="next"><a href="04-workshop.html" class="query-params-link">4. Workshop</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

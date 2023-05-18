@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Solution Patterns: Red Hat Openshift Service on AWS :: Solution Patterns for Cloud Native Architectures</title>
+    <link rel="canonical" href="https://redhat-solution-patterns.github.io/solution-patterns/solution-pattern-rosa/index.html">
+    <link rel="next" href="01-pattern.html#_the_story_behind_this_solution_pattern">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://redhat-solution-patterns.github.io/" target="_blank"><img
+          src="../_/img/logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-solution-patterns.github.io/solution-patterns">Solution Patterns for Cloud Native Architectures</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solution Patterns</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://red.ht/enhance-with-cdc">Adopt Change Data Capture for <br/>stack modernization</a>
+            <a class="navbar-item" href="https://red.ht/enhance-with-eda">Enhancing Applications with Application Services</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Other</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-gitops-patterns.io/">GitOps Solution Patterns</a>
+            <a class="navbar-item" href="https://hybrid-cloud-patterns.io/">Hybrid Cloud Solution Patterns</a>
+          </div>
+        </div>
+
+        <a class="navbar-item" target="_blank" href="https://www.redhat.com/en/products/middleware">Red Hat Application Services</a>
+        <a class="navbar-item" target="_blank" href="https://developers.redhat.com/middleware">Learn more</a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="solution-pattern-rosa" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Red Hat Openshift Service on AWS(ROSA)</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">1. Home page</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#whatisrosa">1.1 What is ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#rosavsk8s">1.2 How ROSA is different from DIY Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#rosaatscale">3. How ROSA is being used at global scale</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#benefits">1.4 Benefits of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#features">1.5 Features of ROSA</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_story_behind_this_solution_pattern">1.6 The story behind this solution pattern</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="01-pattern.html#_the_solution">1.7 The solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#_content_overview">1.8 Explore more solution patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="02-architecture.html">2. Architecture</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarch">2.1. ROSA Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchpublicnprivate">2.2. ROSA on public and private networks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-architecture.html#rosaarchprivatelink">2.3. ROSA with AWS PrivateLink</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-demo.html">3. See the Solution in Action</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#cluster_create_video">3.1. Demonstration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-demo.html#rosa_with_aws">3.2. ROSA integration with AWS services</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="04-workshop.html">4. Workshop</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#install_workshop">4.1. Installing the workshop environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="04-workshop.html#workshop_steps">4.2. Workshop Steps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="https://redhat-solution-patterns.github.io/">5. Other Red Hat Solution Patterns</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Red Hat Openshift Service on AWS(ROSA)</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Red Hat Openshift Service on AWS(ROSA)</a></li>
+    <li><a href="index.html">1. Home page</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/gmidha1/solution-pattern-rosa/edit/main/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Solution Patterns: Red Hat Openshift Service on AWS</h1>
+<div class="sect1">
+<h2 id="whatisrosa"><a class="anchor" href="#whatisrosa"></a><a class="link" href="#whatisrosa">1. Solution overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This solution pattern brings an architectural solution demonstrating the integration of Red Hat Openshift Service on AWS(ROSA) with different AWS services.</p>
+</div>
+<div class="paragraph">
+<p>ROSA(Red Hat Openshift Service on AWS) is a fully-managed, turnkey application platform that allows you to focus on delivering value to your customers by building and deploying applications. Red Hat and AWS Site reliability engineering (SRE) experts manage the underlying platform so you do not have to worry about the complexity of infrastructure management. ROSA provides seamless integration with a wide range of AWS compute, database, analytics, machine learning, networking, mobile, and other services to further accelerate the building and delivering of differentiating experiences to your customers.</p>
+</div>
+<h2 id="_content_overview" class="discrete">Content overview</h2>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_a-href-1-solution-pattern-a"></a><a href="#">1. Solution Pattern</a></p>
+</li>
+<li>
+<p><a id="tabset1_a-href-02-architecture-html-class-xref-page-2-architecture-a"></a><a href="02-architecture.html" class="xref page">2. Architecture</a></p>
+</li>
+<li>
+<p><a id="tabset1_a-href-03-demo-html-class-xref-page-3-demonstration-a"></a><a href="03-demo.html" class="xref page">3. Demonstration</a></p>
+</li>
+<li>
+<p><a id="tabset1_a-href-04-workshop-html-class-xref-page-4-workshop-a"></a><a href="04-workshop.html" class="xref page">4. Workshop</a></p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_a-href-1-solution-pattern-a">
+<div class="paragraph">
+<p><a href="#whatisrosa">1. What is ROSA</a><br>
+<a href="#rosavsk8s">2. How ROSA is different from DIY Kubernetes</a><br>
+<a href="#rosaatscale">3. How ROSA is being used at global scale</a><br>
+<a href="#benefits">4. Benefits of ROSA</a><br>
+<a href="#features">5. Features of ROSA</a><br>
+<a href="01-pattern.html#_the_story_behind_this_solution_pattern" class="xref page">6. The story behind this solution pattern</a><br>
+<a href="#use-cases">7. Use cases</a><br>
+<a href="01-pattern.html#_the_solution" class="xref page">8. The solution</a><br>
+<a href="#_explore_more_solution_patterns">9. Explore more solution patterns</a></p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_a-href-02-architecture-html-class-xref-page-2-architecture-a">
+<div class="paragraph">
+<p><a href="02-architecture.html#rosaarch" class="xref page">1. ROSA Architecture </a><br>
+<a href="02-architecture.html#rosaarchpublic" class="xref page">2. ROSA on public networks</a><br>
+<a href="02-architecture.html#rosaarchprivatelink" class="xref page">3. ROSA on private networks with AWS PrivateLink</a></p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_a-href-03-demo-html-class-xref-page-3-demonstration-a">
+<div class="paragraph">
+<p><a href="03-demo.html#cluster_create_video" class="xref page">1. Demonstration</a><br>
+<a href="03-demo.html#rosa_with_aws" class="xref page">2. ROSA integration with AWS services</a></p>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_a-href-04-workshop-html-class-xref-page-4-workshop-a">
+<div class="paragraph">
+<p><a href="04-workshop.html#install_workshop" class="xref page">1. Installing the workshop environment</a><br>
+<a href="04-workshop.html#workshop_steps" class="xref page">2. Workshop Steps</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rosavsk8s"><a class="anchor" href="#rosavsk8s"></a><a class="link" href="#rosavsk8s">2. How ROSA is different from DIY Kuberenetes</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Container and Kubernetes are the modern elements of business software success. But it requires training and a great amount of effort to shift to Kubernetes.
+Let us see how ROSA differs from DIY Kubernetes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ROSA is a Managed Application platform: DIY Kubernetes can be tricky to get it up and running. There are many options and configurations available to customize the Kubernetes clusters as per the requirements. To setup different environments and make those available quickly with strong security posture is no small task. It can take a whole team of people to keep such systems up and running. ROSA provides a higher class of service, support and hosting , along with enhanced securityy capabilities. With Red Hat&#8217;s SRE running the infrastructure, Application team can focus on the applications instead of spending time standing up and installing systems so that container workloads can be deployed on those clusters.</p>
+</li>
+<li>
+<p>ROSA provides automation and management: With tools like Ansible, Argo CD and Git, nearly any workflow can be automated into a pipeline. But this level of automation takes time to build and customize, just like any infrastructure. For teams that aren&#8217;t yet specialized in the new "cloudy" way of building software abd even for teams that would rather spend their cycles away from infrastructure, Red Hat Openshift Service on AWS features helpful automation tools and processes to help speed up the process. Instead of building your development pipelines from scratch, ROSA can tie in your existing systems and tools, such as GitHub and Ansible. Even better, our SREs have constructed patterns for your developers to use, with pre-configured versions of essential infrastructure ready to go at the drop of a hat.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rosaatscale"><a class="anchor" href="#rosaatscale"></a><a class="link" href="#rosaatscale">3. How ROSA is being used at global scale</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below picture depicts the usage of ROSA clusters across different countries:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="rosaatscale.png" target="_blank" rel="noopener"><img src="_images/rosaatscale.png" alt="rosaatscale" width="100%"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits"><a class="anchor" href="#benefits"></a><a class="link" href="#benefits">4. Benefits of ROSA</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Organizations are looking for a way to deliver high quality, innovative applications that provide greater business value and effectively scale according to rapidly changing demands. Here are the features &amp; benefits of ROSA:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A Native AWS Experience: ROSA enables organizations to take advantage of the power of Openshift, the industry&#8217;s leading enterprise Kubernetes platform, as a native AWS service from the AWS Management console.</p>
+</li>
+<li>
+<p>Easier Container Adoption &amp; Cloud Migration: ROSA delivers enterprise-ready Kuberenetes that many companies already use on-premises today, enhancing the ability to shift workloads to the cloud and making it even easier for customers to adopt containers and deploy their applications faster on AWS.</p>
+</li>
+<li>
+<p>Fully Managed Platform: Installation, monitoring, management, maintenance, and upgrades are performed by Red Hat site reliability engineers (SRE) covering the complete stack including the control plane, worker nodes, and key services.</p>
+</li>
+<li>
+<p>Streamlined, integrated support &amp; billing experience: Jointly operated &amp; supported by Red Hat &amp; AWS with an integrated support experience and 99.95% uptime SLA. Customers will also receive a single bill from AWS for both OpenShift &amp; AWS consumption.</p>
+</li>
+<li>
+<p>Maximum availability: Deploy clusters across multiple Availability Zones in supported Regions to maximize availability.</p>
+</li>
+<li>
+<p>Regulatory compliance: Address comprehensive security and compliance needs with industry-specific standards and regulations such as SOC-1, SOC-2 Type 1 &amp; 2 and ISO-27001.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="anchor" href="#features"></a><a class="link" href="#features">5. Features of ROSA</a></h2>
+<div class="sectionbody">
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Security:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Network Security:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Firewall &amp; DDoS protection: Each ROSA cluster is protected by a secure network configuration using firewall rules for AWS Security Groups. ROSA customers are also protected against DDoS attacks with AWS Shield Standard.</p>
+</li>
+<li>
+<p>Private clusters and network connectivity: Customers can optionally configure their ROSA cluster endpoints, such as web console, API, and application router, to be made private so that the cluster control plane and applications are not accessible from the Internet. Red Hat SRE still requires Internet-accessible endpoints that are protected with IP allow-lists. AWS customers can configure a private network connection to their ROSA cluster through technologies such as AWS VPC peering, AWS VPN, or AWS Direct Connect.</p>
+</li>
+<li>
+<p>Cluster network access controls: Fine-grained network access control rules can be configured by customers, on a per-project basis, using NetworkPolicy objects and the OpenShift SDN.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Compliance: ROSA is currently compliant with SOC-1, SOC-2 type 1 &amp; type 2, ISO-27001, &amp; PCI-DSS. We are also currently working towards FedRAMP High, HIPAA, ISO 27017 and ISO 27018.</p>
+</li>
+<li>
+<p>Vulnerability Management: Red Hat performs periodic vulnerability scanning of ROSA using industry standard tools. Identified vulnerabilities are tracked to their remediation according to timelines based on severity. Vulnerability scanning and remediation activities are documented for verification by third-party assessors in the course of compliance certification audits.</p>
+</li>
+<li>
+<p>STS: ROSA utilizes AWS Security Token Service for all of the AWS IAM roles it uses to reach the AWS API. This allows the platform to address the principle of least privilege in customer accounts. Instead of each cluster requiring a single high-privilege role, each component of the cluster has as a role and policy with the specific permission actions required.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Availability:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>High Availability: Installation, monitoring, management, maintenance, and upgrades of clusters are performed by Red Hat site reliability engineers (SRE) covering the complete stack including the control plane, worker nodes and key services. You can also deploy clusters across multiple Availability Zones in supported regions to maximize availability.</p>
+</li>
+<li>
+<p>Joint Support: ROSA is jointly supported by Red Hat and AWS with an integrated support experience and 99.95% uptime SLA. You can either contact AWS support via the Support Center accessible from the AWS console (<a href="https://console.aws.amazon.com/support/" class="bare">https://console.aws.amazon.com/support/</a>), or you can open a support case via Red Hat&#8217;s Customer Portal (<a href="https://access.redhat.com" class="bare">https://access.redhat.com</a>) where you will also find self-service support articles and up to date phone contact information.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Durability:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Backup &amp; Recovery: All Red Hat OpenShift Service on AWS cluster metadata from OpenShift Cluster Manager is securely backed up by Red Hat. Red Hat does not commit to any Recovery Point Objective (RPO) or Recovery Time Objective (RTO). Customers are responsible for taking regular backups of their data. Customers should deploy multi-AZ clusters with workloads that follow Kubernetes best practices to ensure high availability within a region. If an entire cloud region is unavailable, customers must install a new cluster in a different region and restore their apps using their backup data. The following table outlines backup and recovery strategies:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="ostoybackup.png" target="_blank" rel="noopener"><img src="_images/ostoybackup.png" alt="ostoybackup" width="100%"></a>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Scalability:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Autoscaling: Node autoscaling is available on Red Hat OpenShift Service on AWS. You can configure the autoscaler option to automatically scale the number of machines in a cluster. The cluster autoscaler increases the size of the cluster when there are pods that failed to schedule on any of the current nodes due to insufficient resources or when another node is necessary to meet deployment needs. The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.</p>
+<div class="paragraph">
+<p>Additionally, the cluster autoscaler decreases the size of the cluster when some nodes are consistently not needed for a significant period, such as when it has low resource use and all of its important pods can fit on other nodes. When you enable autoscaling, you must also set a minimum and maximum number of worker nodes.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Performance:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Platform monitoring: Red Hat site reliability engineers (SREs) maintain a centralized monitoring and alerting system for all ROSA cluster components, the SRE services, and underlying AWS accounts. Platform audit logs are securely forwarded to a centralized security information and event monitoring (SIEM) system, where they may trigger configured alerts to the SRE team and are also subject to manual review. Audit logs are retained in the SIEM system for one year. Audit logs for a given cluster are not deleted at the time the cluster is deleted.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Ease of install and upgrade:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Installation: Customers can easily deploy fully managed Red Hat Openshift          service in AWS cloud. Red hat has worked closely with Amazon to integrate this service via AWS management console allowing existing amazon customers to onboard Openshift capabilities by a simple subscription with all billing centralized just as it is today.</p>
+</li>
+<li>
+<p>Upgrade: Red Hat provides a published product life cycle for Red Hat OpenShift Service on AWS in order for customers and partners to effectively plan, deploy, and support their applications running on the platform. Red Hat publishes this life cycle in order to provide as much transparency as possible and might make exceptions from these policies as conflicts arise.</p>
+<div class="paragraph">
+<p>Red Hat OpenShift Service on AWS is a managed instance of Red Hat OpenShift and maintains an independent release schedule. The availability of Security Advisories and Bug Fix Advisories for a specific version are dependent upon the Red Hat OpenShift Container Platform life cycle policy and subject to the Red Hat OpenShift Service on AWS maintenance schedule.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Red Hat Openshift Cluster Manager:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Red Hat OCM: Red Hat OpenShift Cluster Manager is a managed service where you can install, modify, operate, and upgrade your Red Hat OpenShift clusters. This service allows you to work with all of your organization’s clusters from a single dashboard.</p>
+<div class="paragraph">
+<p>OpenShift Cluster Manager guides you to install OpenShift Container Platform, Red Hat OpenShift Service on AWS (ROSA), and OpenShift Dedicated clusters. It is also responsible for managing both OpenShift Container Platform clusters after self-installation as well as your ROSA and OpenShift Dedicated clusters. You can use OpenShift Cluster Manager to do the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create new clusters</p>
+</li>
+<li>
+<p>View cluster details and metrics</p>
+</li>
+<li>
+<p>Manage your clusters with tasks such as scaling, changing node labels, networking, authentication</p>
+</li>
+<li>
+<p>Manage access control</p>
+</li>
+<li>
+<p>Monitor clusters</p>
+</li>
+<li>
+<p>Schedule upgrades</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_story_behind_this_solution_pattern"><a class="anchor" href="#_the_story_behind_this_solution_pattern"></a><a class="link" href="#_the_story_behind_this_solution_pattern">6. The story behind this solution pattern</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat OpenShift Service on AWS (ROSA) is for customers who want an
+OpenShift experience in AWS with close integration to AWS services, joint
+support, and a single bill. It helps ensure consistency across environments and
+is jointly managed and supported by Red Hat and AWS. It can be purchased directly
+through the AWS console and offers pay-as-you-go, single-vendor
+invoicing. Its key differentiators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Built for the hybrid cloud</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Public cloud, on-premise, or at the edge.</p>
+</li>
+<li>
+<p>Centralized management that spans across hosting environments.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Complete, hardened, and supported platform for modern
+applications</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Whole-product solution integrating all tools required for the full
+software development life cycle.</p>
+</li>
+<li>
+<p>Range of metering, monitoring, and observability capabilities.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Broad open source and ISV ecosystem</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supported and deployed through the OpenShift Operator Framework with a choice of toolsets to help automate and integrate
+operations.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_solution"><a class="anchor" href="#_the_solution"></a><a class="link" href="#_the_solution">7. The Solution</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This solution pattern demonstrates different features of Red Hat OpenShift Service on AWS and how well it integrates with different AWS services. In this pattern, we will look at ROSA&#8217;s architecture with public/private network as well as with AWS PrivateLink. At the end, we will deploy an application(OSToy) and perform various activities on this application as part of the workshop to demonstrates how easy it is work with ROSA.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_explore_more_solution_patterns"><a class="anchor" href="#_explore_more_solution_patterns"></a><a class="link" href="#_explore_more_solution_patterns">8. Explore more solution patterns</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s time to boost your cloud-native application architectural design with bleeding-edge technology backed by open-source software. Explore the use cases and learn recommended solutions for each of these challenges:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Application Modernization</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-modernization-cdc/">Adopting Change Data Capture for stack modernization</a></p>
+</li>
+<li>
+<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-enhancing-applications">Enhancing Applications with Application Services</a></p>
+</li>
+<li>
+<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-apim-servicemesh/comprehensive-service-architecture">Comprehensive Service Architecture with API Management and Service Mesh</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>DevOps</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://redhat-solution-patterns.github.io/solution-pattern-multicloud-gitops-odf/">MultiCloud GitOps with ArgoCD, OpenShift Advanced Cluster Management and OpenShift Data Foundation</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="next"><a href="01-pattern.html#_the_story_behind_this_solution_pattern" class="query-params-link">1.6 The story behind this solution pattern</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img
+          src="../_/img/app-services-logo.png" height="40px" alt="Cloud Native Architecture Solution Patterns"  href="https://redhat.com" ></a>
+</footer><script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
