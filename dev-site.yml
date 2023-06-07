@@ -13,7 +13,7 @@ content:
       start_path: documentation
 asciidoc:
   attributes:
-    title: "Solution Pattern: Red Hat Openshift Service on AWS(ROSA)"
+    title: "Solution Pattern: Accelerate time to value with Red Hat Openshift Service on AWS"
   extensions:
     - ./lib/remote-include-processor.js
     - ./lib/tab-block.js
