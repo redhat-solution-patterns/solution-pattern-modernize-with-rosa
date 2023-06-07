@@ -1,4 +1,4 @@
-= Solution Patterns: Red Hat Openshift Service on AWS
+= Solution Patterns: Accelerate time to value with Red Hat Openshift Service on AWS
 :page-layout: home
 :sectnums:
 :sectlinks:

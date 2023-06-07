@@ -1,5 +1,5 @@
 name: solution-pattern-rosa
-title: Red Hat Openshift Service on AWS(ROSA)
+title: Accelerate time to value with Red Hat Openshift Service on AWS
 version: master
 nav:
   - modules/ROOT/nav.adoc

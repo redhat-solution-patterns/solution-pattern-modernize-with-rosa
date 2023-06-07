@@ -1,4 +1,4 @@
-= Solution Pattern: Name Template
+= Solution Pattern: Accelerate time to value with Red Hat Openshift Service on AWS
 :sectnums:
 :sectlinks:
 :doctype: book
